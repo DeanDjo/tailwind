@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.10.0/css/bulma.min.css">
+    <title>Dagdoelen Web App</title>
+    <style>
+        /* Aangepaste stijlen toevoegen */
+        body {
+            background-color: #565656;
+        }
+
+        .container {
+            max-width: 960px;
+        }
+
+        #vandaag,
+        #student-form,
+        #coach-screen {
+            margin-bottom: 20px;
+            background-color: #9c9c9c;
+            border-radius: 5px;
+            box-shadow: 0 0 50px rgba(0.1, 0.1, 0.1, 0.1);
+            padding: 25px;
+        }
+
+        /* Lay-out voor desktop */
+        @media screen and (min-width: 769px) {
+
+            #vandaag,
+            #student-form,
+            #coach-screen {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            #vandaag {
+                flex: 1;
+                margin-right: 10px;
+            }
+
+            #student-form {
+                flex: 1;
+                margin-left: 10px;
+            }
+
+            .navbar-menu {
+                display: flex;
+                justify-content: flex-end;
+                flex-grow: 1;
+            }
+        }
+
+        /* Aangepaste knopstijlen */
+        .navbar-item button {
+            background-color: #ffffff;
+            border: none;
+            color: #000000;
+            /* Black text color */
+            cursor: pointer;
+        }
+
+        .navbar-item button:hover {
+            background-color: #000000;
+            color: #ffffff;
+            /* White text color on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- header -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.html">
+                <img src="headspace-logo.svg" width="120" height="30">
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+                <a href="index.html">
+                    <div class="is-flex">
+                        <button class="button is-success" href="index.html">
+                            home
+                        </button>
+                    </div>
+                </a>
+                <div class="navbar-end">
+                    <div class="navbar-end">
+                        <div class="buttons ">
+                            <a href="log.html">
+
+                                <button class="button is-success is button is-rounded">log in</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </nav>
+
+    <div class="container mt-4">
+
+        <div id="vandaag" class="box">
+            <h2 class="title is-4">Vandaag's Doelen en Tijden</h2>
+            <ul id="doelen-lijst"></ul>
+        </div>
+
+        <!-- Voor studenten -->
+        <div id="student-form" class="box">
+            <h2 class="title is-4">Voer Jouw Dagdoel In</h2>
+            <form id="doel-form" action="#" method="post">
+                <div class="field">
+                    <label class="label">Dagdoel:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="doel-input" name="doel-input"
+                            placeholder="Voer je dagdoel in" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="button" class="button is-primary" onclick="submitDoel()">Indienen</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Scherm voor coaches -->
+        <div id="coach-screen" class="box">
+            <h2 class="title is-4">Coaches Scherm</h2>
+            <div class="is-flex is-justify-content-center">
+                <!--accepteren-->
+                <a href="index.html">
+                    <button class="button is-success">
+                        accepteren
+                    </button>
+                </a>
+                <!--afwijzen-->
+                <a href="index.html">
+                    <button class="button is-danger">
+                        afwijzen
+                    </button>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function submitDoel() {
+            var doelInput = document.getElementById('doel-input').value;
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+
+            var doelenLijst = document.getElementById('doelen-lijst');
+            var listItem = document.createElement('li');
+            listItem.textContent = doelInput + ' - ' + formattedTime;
+            doelenLijst.appendChild(listItem);
+
+            // Voeg hier de logica toe om de doelen op te slaan of door te sturen naar de server
+        }
+    </script>
+
+</body>
+
+</html>
